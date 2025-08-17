@@ -121,12 +121,10 @@ if st.button("시작"):
         t = my_guess(col)
         if t is None:
             t = ask_model(col)
-        if not t:
+        elif not t:
             t = "VARCHAR"
-        if t not in ALLOWED:
+        elif t not in ALLOWED:
             t = "VARCHAR"
-        if i < 3:
-           pass
         res.append({"field": col, "type": t})
         try:
             prog.progress(int((i+1)/N*100))
