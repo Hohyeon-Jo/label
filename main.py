@@ -57,31 +57,29 @@ def my_guess(x):
         return None
     if "email" in s or "e_mail" in s:
         return "EMAIL"
-    if ("phone" in s) or ("tel" in s) or ("mobile" in s) or ("contact" in s):
+    elif ("phone" in s) or ("tel" in s) or ("mobile" in s) or ("contact" in s):
         return "PHONE"
-    if s == "id" or s.endswith("_id"):
+    elif s == "id" or s.endswith("_id"):
         if "uuid" in s:
             return "UUID"
         return "INT"
-    if re.search(r'(^|_)num($|_)', s) or ("count" in s) or ("qty" in s) or ("quantity" in s) or ("age" in s):
+    elif re.search(r'(^|_)num($|_)', s) or ("count" in s) or ("qty" in s) or ("quantity" in s) or ("age" in s):
         return "INT"
-    if any(k in s for k in ["price","amount","total","balance","rate","ratio","percent","avg","mean","score"]):
+    elif any(k in s for k in ["price","amount","total","balance","rate","ratio","percent","avg","mean","score"]):
         return "DECIMAL"
-    if any(k in s for k in ["created_at","updated_at","deleted_at","timestamp"]):
+    elif any(k in s for k in ["created_at","updated_at","deleted_at","timestamp"]):
         return "DATETIME"
-    if ("date" in s) or ("dob" in s) or ("birth" in s):
+    elif ("date" in s) or ("dob" in s) or ("birth" in s):
         return "DATE"
-    if "time" in s:
+    elif "time" in s:
         return "TIME"
-    if any(k in s for k in ["desc","memo","note","comment","content","body","text"]):
+    elif any(k in s for k in ["desc","memo","note","comment","content","body","text"]):
         return "TEXT"
-    if "name" in s:
+    elif "name" in s:
         return "VARCHAR"
     return "VARCHAR"
 
 def ask_model(field_name):
-    if not client:
-        return None
     prom = '타입만. JSON 한 줄: {"type":"VARCHAR"}\n컬럼: ' + str(field_name)
     try:
         r = client.responses.create(
